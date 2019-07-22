@@ -1,0 +1,25 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HitHelper : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    void OnMouseDown()
+    {
+        gameObject.GetComponent<Animator>().SetTrigger("Hit");
+        gameObject.GetComponent<HealthHelper>().GetHit(10);
+        
+    }
+
+}
