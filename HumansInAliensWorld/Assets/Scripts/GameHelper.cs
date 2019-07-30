@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameHelper : MonoBehaviour
 {
-     public Slider HealthSlider; 
+         public Slider HealthSlider; 
     public Transform StartPosition;
     public GameObject GoldPrefab;
     
@@ -33,9 +33,7 @@ public class GameHelper : MonoBehaviour
      public void TakeGold(int gold) //выдаем золото
     {
         PlayerGold += gold;
-        GameObject GoldPrefabTmp = Instantiate(GoldPrefab) as GameObject; //создаем новый перед удалением
-        Destroy(GoldPrefabTmp,1.0f); //удаляем после анимации в 1 сек
-
+        GameObject GoldPrefabTmp = Instantiate(GoldPrefab) as GameObject; //создаем новое золото
         SpawnMonsters(); //Нового монстра
     }
 

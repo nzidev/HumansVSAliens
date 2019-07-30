@@ -12,7 +12,7 @@ public class HealthHelper : MonoBehaviour
     public int Gold = 100;    //Сколько золотых за смерть
     
     GameHelper gameHelper;
-    
+    [SerializeField] private GameObject textdamage;
     
 
     // Start is called before the first frame update
@@ -43,5 +43,8 @@ public class HealthHelper : MonoBehaviour
         
         Health=health;
         gameHelper.HealthSlider.value = Health;
+        GameObject textdamagetmp = Instantiate(textdamage, new Vector2(0, 0), Quaternion.identity) as GameObject; 
+        textdamagetmp.transform.SetParent (GameObject.FindGameObjectWithTag("Canvas").transform, false);
+      
     }
 }

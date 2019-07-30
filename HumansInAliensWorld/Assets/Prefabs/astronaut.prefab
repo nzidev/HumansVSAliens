@@ -145,9 +145,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43b4e95408f10043aa4faf623997752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 10
-  Health: 10
+  MaxHealth: 100
+  Health: 100
   Gold: 100
+  textdamage: {fileID: 7811750393040125141, guid: 32b4a612770467c47bb3c1356a0ab487,
+    type: 3}
 --- !u!114 &6241126746213346744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +170,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8827583139059304303}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: baae566d3e3b59e4e9649ff1e3b78ce0, type: 2}
   m_CullingMode: 0
