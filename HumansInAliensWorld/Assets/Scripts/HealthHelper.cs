@@ -16,7 +16,7 @@ public class HealthHelper : MonoBehaviour
     
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         gameHelper = GameObject.FindObjectOfType<GameHelper>();
         gameHelper.HealthSlider.maxValue = MaxHealth;
@@ -26,13 +26,14 @@ public class HealthHelper : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }
 
     public void GetHit(int damage) //получаем урон
     {
+        Debug.Log(damage);
         int health = Health - damage;
 
         if (health <= 0)
@@ -43,8 +44,10 @@ public class HealthHelper : MonoBehaviour
         
         Health=health;
         gameHelper.HealthSlider.value = Health;
-        GameObject textdamagetmp = Instantiate(textdamage, new Vector2(0, 0), Quaternion.identity) as GameObject; 
-        textdamagetmp.transform.SetParent (GameObject.FindGameObjectWithTag("Canvas").transform, false);
-      
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject textdamagetmp = Instantiate(textdamage, new Vector2(0, 0), Quaternion.identity) as GameObject; 
+            textdamagetmp.transform.SetParent (GameObject.FindGameObjectWithTag("Canvas").transform, false);
+        }
     }
 }

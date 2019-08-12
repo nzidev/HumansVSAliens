@@ -11,6 +11,7 @@ public class btnMainDmgHelper : MonoBehaviour
     private int DmgPlus = 10; //procent
     
     private int Price = 100;
+    private int PricePlus = 10; //procent
     GameHelper gameHelper;
 
 
@@ -41,8 +42,9 @@ public class btnMainDmgHelper : MonoBehaviour
 
     public void Click()
     {
-        gameHelper.PlayerGold -= Price;
+        gameHelper.PayGold(Price);
         gameHelper.PlayerDamage += ((DmgPlus*gameHelper.PlayerDamage)/100);
-        Price = Price *3 / 2;
+        
+        Price += ((Price * PricePlus) /100);
     }
 }

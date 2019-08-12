@@ -20,10 +20,7 @@ public class HitHelper : MonoBehaviour
         
     }
     void OnMouseDown()
-    {
-        
-
-        gameObject.GetComponent<Animator>().enabled  = true;
+    {        gameObject.GetComponent<Animator>().enabled  = true;
         gameObject.GetComponent<Animator>().SetTrigger("Hit");
         gameObject.GetComponent<HealthHelper>().GetHit(gameHelper.PlayerDamage);
         
