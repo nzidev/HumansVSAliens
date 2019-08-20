@@ -16,8 +16,27 @@ public class GameHelper : MonoBehaviour
     
     public int PlayerGold;
     public int PlayerDamage = 1;
-    private int TimeForBoss = 30;
-
+    private int TimeForBoss = 5;
+    /// <summary>
+    /// Количество убитых монстров.
+    /// </summary>
+    private int CountMobs = 0;
+    /// <summary>
+    /// Количество мобов для появления босса.
+    /// </summary>
+    private int CountForBoss = 1;
+    /// <summary>
+    /// Появлялся ли босс.
+    /// </summary>
+    private bool IsBossShowed = false;
+    /// <summary>
+    /// Индекс текущего монстра.
+    /// </summary>
+    private int index;
+    /// <summary>
+    /// Объект монстра.
+    /// </summary>
+    private GameObject monsters;
     // Start is called before the first frame update
     private void Start()
     {
@@ -28,6 +47,11 @@ public class GameHelper : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if(IsBossShowed && index == (MonstersPrefab.Length - 1) && TimerSlider.value <= 0.1f)
+        {
+            Destroy(monsters);
+            SpawnMonsters();
+        }
     }
 
     public void TakeGold(int gold) //выдаем золото
@@ -35,6 +59,8 @@ public class GameHelper : MonoBehaviour
         PlayerGold += gold;
         PlayerGoldUI.text = PlayerGold.ToString(); 
         GameObject GoldPrefabTmp = Instantiate(GoldPrefab) as GameObject; //создаем новое золото
+       
+
         SpawnMonsters(); //Нового монстра
     }
 
@@ -46,21 +72,29 @@ public class GameHelper : MonoBehaviour
 
     void SpawnMonsters()
     {
-        int index = Random.Range(0,MonstersPrefab.Length);
-        GameObject monsters = Instantiate(MonstersPrefab[index]) 
-            as GameObject; //создаем новый 
-        monsters.transform.position = StartPosition.position;
-        if(index == MonstersPrefab.Length - 1)
+        if(CountMobs >= CountForBoss && !IsBossShowed)
         {
-            TimerSlider.gameObject.SetActive(true);
-            TimerSlider.maxValue = TimeForBoss;
-            TimerSlider.value = TimerSlider.maxValue;
-            StartCoroutine(StartTimer());
+            IsBossShowed = true;
+            index = MonstersPrefab.Length - 1;
+            ShowBossTimer();
         }
         else
         {
+            index = Random.Range(0, MonstersPrefab.Length-1);
             TimerSlider.gameObject.SetActive(false);
         }
+
+        monsters = Instantiate(MonstersPrefab[index])
+            as GameObject; //создаем нового моба
+        monsters.transform.position = StartPosition.position;
+    }
+
+    private void ShowBossTimer()
+    {
+        TimerSlider.gameObject.SetActive(true);
+        TimerSlider.maxValue = TimeForBoss;
+        TimerSlider.value = TimerSlider.maxValue;
+        StartCoroutine(StartTimer());
     }
 
     private IEnumerator StartTimer()
@@ -69,6 +103,11 @@ public class GameHelper : MonoBehaviour
         TimerSlider.value-=0.1f; 
         if(TimerSlider.value > 0.1f) 
         StartCoroutine(StartTimer());
+    }
+
+    public void IncrMob()
+    {
+        CountMobs++;
     }
 
 }

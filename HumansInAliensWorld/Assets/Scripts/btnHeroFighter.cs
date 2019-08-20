@@ -12,7 +12,7 @@ public class btnHeroFighter : MonoBehaviour
     private bool isCreated = false; // флаг создан объект или нет
     private int DmgPlus = 1; 
     private int DmgStart = 1;
-    
+       
     private float AttackSpeed = 1.1f;
     private int Price = 100;
     private int PricePlus = 10; //procent

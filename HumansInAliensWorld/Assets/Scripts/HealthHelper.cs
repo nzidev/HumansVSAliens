@@ -33,12 +33,13 @@ public class HealthHelper : MonoBehaviour
 
     public void GetHit(int damage) //получаем урон
     {
-        Debug.Log(damage);
+        //Debug.Log(damage);
         int health = Health - damage;
 
         if (health <= 0)
         {
             gameHelper.TakeGold(Gold); //выдаем золото перед смертью
+            gameHelper.IncrMob(); //Увеличиваем счетчик мобов
             Destroy(gameObject);
         }
         
