@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// Закреплен на префабе монстра
+/// </summary>
 public class HealthHelper : MonoBehaviour
 {
    

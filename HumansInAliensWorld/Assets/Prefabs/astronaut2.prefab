@@ -148,6 +148,8 @@ MonoBehaviour:
   MaxHealth: 10
   Health: 10
   Gold: 100
+  textdamage: {fileID: 7811750393040125141, guid: 32b4a612770467c47bb3c1356a0ab487,
+    type: 3}
 --- !u!114 &8098077451611764916
 MonoBehaviour:
   m_ObjectHideFlags: 0
