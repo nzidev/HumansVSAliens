@@ -1,38 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.U2D;
 using UnityEngine;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class GameHelper : MonoBehaviour
 {
-
-   
-    public Slider HealthSlider; 
+     public Slider HealthSlider; 
      public Slider TimerSlider; 
     public Transform StartPosition;
     public GameObject GoldPrefab;
-    public Button FightWithBoss;
     
-    /// <summary>
-    /// Атлас спрайтов монстров
-    /// </summary>
-    [SerializeField]
-    private SpriteAtlas spriteAtlasMonsters;
-    /// <summary>
-    /// Имена монстров в спрайте монстров
-    /// </summary>
-    private string[] NameOfSpritesMonsters;
-
-    private static Object[] objs;
     public GameObject[] MonstersPrefab;
     public Text PlayerGoldUI;
    // public Text PlayerDamageUI;
     
     public int PlayerGold;
     public int PlayerDamage = 1;
-    private int TimeForBoss = 30;
+    private int TimeForBoss = 5;
     /// <summary>
     /// Количество убитых монстров.
     /// </summary>
@@ -40,7 +24,7 @@ public class GameHelper : MonoBehaviour
     /// <summary>
     /// Количество мобов для появления босса.
     /// </summary>
-    private int CountForBoss = 10;
+    private int CountForBoss = 1;
     /// <summary>
     /// Появлялся ли босс.
     /// </summary>
@@ -56,12 +40,8 @@ public class GameHelper : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        
         PlayerGoldUI.text = PlayerGold.ToString(); 
         SpawnMonsters();
-        FightWithBoss.gameObject.SetActive(false);
-        objs = SpriteAtlasExtensions.GetPackables(spriteAtlasMonsters);
-        Debug.Log(objs.ToString());
     }
 
     // Update is called once per frame
@@ -71,7 +51,6 @@ public class GameHelper : MonoBehaviour
         {
             Destroy(monsters);
             SpawnMonsters();
-            FightWithBoss.gameObject.SetActive(true);
         }
     }
 
@@ -95,38 +74,23 @@ public class GameHelper : MonoBehaviour
     {
         if(CountMobs >= CountForBoss && !IsBossShowed)
         {
-            //Показываем босса
-            ShowBoss();
+            IsBossShowed = true;
+            index = MonstersPrefab.Length - 1;
+            ShowBossTimer();
         }
         else
         {
-            //Показываем обычного рандомного монстра
-            ShowMob();
+            index = Random.Range(0, MonstersPrefab.Length-1);
+            TimerSlider.gameObject.SetActive(false);
         }
 
-
-    }
-
-    private void ShowMob()
-    {
-        index = Random.Range(0, MonstersPrefab.Length - 1);
-        TimerSlider.gameObject.SetActive(false);
         monsters = Instantiate(MonstersPrefab[index])
             as GameObject; //создаем нового моба
         monsters.transform.position = StartPosition.position;
-        
-        // monsters.GetComponent<SpriteRenderer>().sprite = GetPackables(spriteAtlasMonsters);
     }
 
-    public void ShowBoss()
+    private void ShowBossTimer()
     {
-        FightWithBoss.gameObject.SetActive(false);
-        Destroy(monsters);
-        IsBossShowed = true;
-        index = MonstersPrefab.Length - 1;
-        monsters = Instantiate(MonstersPrefab[index])
-                as GameObject; //создаем нового моба
-        monsters.transform.position = StartPosition.position;
         TimerSlider.gameObject.SetActive(true);
         TimerSlider.maxValue = TimeForBoss;
         TimerSlider.value = TimerSlider.maxValue;
@@ -141,19 +105,9 @@ public class GameHelper : MonoBehaviour
         StartCoroutine(StartTimer());
     }
 
-    /// <summary>
-    /// Увеличиваем количество убитых монстров
-    /// </summary>
     public void IncrMob()
     {
-        Debug.Log(CountMobs);
-        if (index == (MonstersPrefab.Length - 1))
-        {
-            CountMobs = 0;
-            IsBossShowed = false;
-        }
-        else
-            CountMobs++;
+        CountMobs++;
     }
 
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class HitHelper : MonoBehaviour
 {
     GameHelper gameHelper;
-   // TextDamageHelper textDamageHelper;
+    TextDamageHelper textDamageHelper;
     
     // Start is called before the first frame update
     void Start()
@@ -20,8 +20,7 @@ public class HitHelper : MonoBehaviour
         
     }
     void OnMouseDown()
-    {
-        gameObject.GetComponent<Animator>().enabled  = true;
+    {        gameObject.GetComponent<Animator>().enabled  = true;
         gameObject.GetComponent<Animator>().SetTrigger("Hit");
         gameObject.GetComponent<HealthHelper>().GetHit(gameHelper.PlayerDamage);
         
